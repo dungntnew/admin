@@ -16,7 +16,7 @@
 				
 					<% if user_signed_in? %>
 					<li>
-						<%= link_to "#", :label => "Profile" do %>
+						<%= link_to edit_user_registration_path, :label => "Profile" do %>
 							<i class="fa fa-user"></i> Welcome <%= current_user %>
 						<% end %>
 					</li>

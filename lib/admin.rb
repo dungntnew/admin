@@ -1,3 +1,4 @@
+require "devise"
 require "admin/engine"
 
 module Admin
