@@ -52,11 +52,13 @@
 							<i class="fa fa-fw fa-dashboard"></i>Dashboard
 						<% end %>
                     </li>
-					<li class="active">
+					<% if user_signed_in? %>
+					<li>
 						<%= link_to users_path, :title => "Admin Users" do %>
 							<i class="fa fa-fw fa-dashboard"></i>Admin Users
 						<% end %>
                     </li>
+					<% end %>
 					<!-- admin:scaffold holder -->
 
 
