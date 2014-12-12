@@ -28,3 +28,5 @@ gem 'autoprefixer-rails'
 # To use devise
 gem 'devise'
 
+# To use authority
+gem "authority"

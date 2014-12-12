@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails", ">= 3.2"
   s.add_dependency "autoprefixer-rails"
   s.add_dependency "devise"
+  s.add_dependency "authority"
 
   s.add_development_dependency "sqlite3"
 end
