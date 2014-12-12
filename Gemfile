@@ -13,6 +13,10 @@ gemspec
 # To use debugger
 # gem 'debugger'
 
+# To use jquery
+gem "jquery-rails", "~> 3.1.2"
+
+
 # To use bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sass-rails', '>= 3.2'
@@ -20,3 +24,7 @@ gem 'sass-rails', '>= 3.2'
 # recommended to use Autoprefixer with Bootstrap to add browser vendor 
 # prefixes automatically
 gem 'autoprefixer-rails'
+
+# To use devise
+gem 'devise'
+
