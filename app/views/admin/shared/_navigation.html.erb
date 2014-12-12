@@ -48,8 +48,13 @@
                 <ul class="nav navbar-nav side-nav">
                     
 					<li class="active">
-						<%= link_to "/", :title => "Dashboard" do %>
+						<%= link_to "/admin", :title => "Dashboard" do %>
 							<i class="fa fa-fw fa-dashboard"></i>Dashboard
+						<% end %>
+                    </li>
+					<li class="active">
+						<%= link_to users_path, :title => "Admin Users" do %>
+							<i class="fa fa-fw fa-dashboard"></i>Admin Users
 						<% end %>
                     </li>
 					<!-- admin:scaffold holder -->
