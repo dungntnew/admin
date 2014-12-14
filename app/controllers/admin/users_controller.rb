@@ -3,6 +3,7 @@ require_dependency "admin/application_controller"
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
+    authorize_actions_for User, :except => :index
 
     # GET /users
     def index
