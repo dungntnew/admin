@@ -3,6 +3,7 @@ require_dependency "admin/application_controller"
 module Admin
   class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
+    before_filter :authenticate_user!
     authorize_actions_for User, :except => :index
 
     # GET /users
@@ -57,7 +58,7 @@ module Admin
 
       # Only allow a trusted parameter "white list" through.
       def user_params
-        params[:user]
+        params.require(:user).permit(:name, :email, :password, :role)
       end
   end
 end

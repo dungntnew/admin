@@ -6,6 +6,7 @@
       <th>ID</th>
       <th>Name</th>
       <th>Email</th>
+	  <th>Role</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
 		<td><%= link_to user.id, user_path(user) %></td>
 		<td><%= user.name %></td>
 		<td><%= user.email %></td>
+		<td><%= user.role %></td>
         <td><%= link_to 'Edit', edit_user_path(user) if current_user.can_update?(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, 
 			data: { confirm: 'Are you sure?' } if current_user.can_delete?(user) %></td>
