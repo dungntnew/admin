@@ -17,4 +17,8 @@ class Admin::InstallGenerator < Rails::Generators::Base
   #             "\n\t#{mailer_url}",
   #             :after => /^.*config.action_mailer.*$/
   # end
+  
+  def create_admin
+    Admin::User.create email: "dungntnew@gmail.com", name: "Admin", password: "abcd1234", role: "admin"
+  end
 end

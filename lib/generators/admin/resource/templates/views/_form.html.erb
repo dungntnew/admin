@@ -1,0 +1,18 @@
+<%%= form_for(@<%=model_name%>, url: <%=create_path%>(@<%=model_name%>),  html: { method: action_name=="new"? ':post': ':put', class: 'form-horizontal' }) do |f| %>
+
+<% attributes.each do |attribute| %>
+<div class="form-group">
+    <%%= f.label :<%=attribute%>, class: 'col-sm-2 control-label'  %>
+    <div class="col-sm-6">
+        <%%= f.text_field :<%=attribute%>, class: 'form-control'  %>
+    </div>
+</div>
+
+<% end %>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+        <%%= f.submit action_name == "new" ? "Create" : "Update", class: "btn btn-primary" %>
+    </div>
+</div>
+<%% end %>

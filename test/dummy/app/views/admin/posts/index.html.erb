@@ -1,0 +1,43 @@
+<h2>Admin Posts</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+	  
+      <th>title</th>
+	  
+      <th>body</th>
+	  
+      <th>price</th>
+	  
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @posts.each do |post|%>
+    <tr>
+	  
+		
+			<td><%= post.title %></td>
+		
+	  
+		
+			<td><%= post.body %></td>
+		
+	  
+		
+			<td><%= post.price %></td>
+		
+	  
+      <td><%= link_to 'Edit', main_app.edit_admin_post_path(post) if current_user.can_update?(post) %></td>
+      <td><%= link_to 'Destroy', main_app.admin_post_path(post), method: :delete, 
+		data: { confirm: 'Are you sure?' } if current_user.can_delete?(post) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', main_app.new_admin_post_path if current_user.can_create?(Post) %>

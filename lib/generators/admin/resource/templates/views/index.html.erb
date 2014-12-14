@@ -1,0 +1,33 @@
+<h2>Admin <%=controller_class_name%></h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+	  <% attributes.each do |attribute| %>
+      <th><%=attribute%></th>
+	  <% end %>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%% @<%=model_name_plural%>.each do |<%=model_name%>|%>
+    <tr>
+	  <% attributes.each do |attribute| %>
+		<% if attribute == "id" %>
+			<td><%%= link_to <%=model_name%>.id, <%=show_path%>(<%=model_name%>) %></td>
+		<% else %>
+			<td><%%= <%=model_name%>.<%=attribute%> %></td>
+		<% end %>
+	  <% end %>
+      <td><%%= link_to 'Edit', <%=edit_path%>(<%=model_name%>) if current_user.can_update?(<%=model_name%>) %></td>
+      <td><%%= link_to 'Destroy', <%=destroy_path%>(<%=model_name%>), method: :delete, 
+		data: { confirm: 'Are you sure?' } if current_user.can_delete?(<%=model_name%>) %></td>
+    </tr>
+  <%% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%%= link_to 'New <%=model_class%>', <%=new_path%> if current_user.can_create?(<%=model_class%>) %>
