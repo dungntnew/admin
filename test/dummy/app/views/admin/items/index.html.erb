@@ -1,0 +1,43 @@
+<h2>Admin Items</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+	  
+      <th>name</th>
+	  
+      <th>description</th>
+	  
+      <th>price</th>
+	  
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @items.each do |item|%>
+    <tr>
+	  
+		
+			<td><%= item.name %></td>
+		
+	  
+		
+			<td><%= item.description %></td>
+		
+	  
+		
+			<td><%= item.price %></td>
+		
+	  
+      <td><%= link_to 'Edit', main_app.edit_admin_item_path(item) if current_user.can_update?(item) %></td>
+      <td><%= link_to 'Destroy', main_app.admin_item_path(item), method: :delete, 
+		data: { confirm: 'Are you sure?' } if current_user.can_delete?(item) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item', main_app.new_admin_item_path if current_user.can_create?(Item) %>

@@ -1,0 +1,43 @@
+<h2>Admin Phones</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+	  
+      <th>name</th>
+	  
+      <th>contry</th>
+	  
+      <th>number</th>
+	  
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @phones.each do |phone|%>
+    <tr>
+	  
+		
+			<td><%= phone.name %></td>
+		
+	  
+		
+			<td><%= phone.contry %></td>
+		
+	  
+		
+			<td><%= phone.number %></td>
+		
+	  
+      <td><%= link_to 'Edit', main_app.edit_admin_phone_path(phone) if current_user.can_update?(phone) %></td>
+      <td><%= link_to 'Destroy', main_app.admin_phone_path(phone), method: :delete, 
+		data: { confirm: 'Are you sure?' } if current_user.can_delete?(phone) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Phone', main_app.new_admin_phone_path if current_user.can_create?(Phone) %>

@@ -15,18 +15,71 @@ class Admin::ResourceGenerator < Rails::Generators::Base
   end
   
   # TODO
-  # 1. route 
-  # namespace :admin do
-  #   resources :posts
-  # end
-  #
-  # 2. Insert authority to model
-  #
-  # Set authorizer class to UserAuthorizer
-  # self.authorizer_name = 'UserAuthorizer'  
-  #  
-  # Adds `creatable_by?(user)`, etc
-  # include Authority::Abilities
+
+  
+  def resource_route
+    
+    # add resource to routes file
+    gsub_file "config/routes.rb", /^.*__admin:resource:route:#{model_name}__.*(\n|\r)/, ''
+    inject_into_file "config/routes.rb", 
+       %Q[
+         namespace :admin do                    #__admin:resource:route:#{model_name}__
+            resources :#{model_name_plural}     #__admin:resource:route:#{model_name}__
+         end                                    #__admin:resource:route:#{model_name}__
+        ].split(/\n/).map { |line| line.gsub /^\s{8}/, ''}.join("\n"),
+        :after => /Rails.application.routes.draw do/
+  end
+  
+  # install authority into resource
+  def install_authority
+    
+    # add Authority::Abilities to resource model
+    # and set authority name to UserAuthority
+    gsub_file "app/models/#{model_name}.rb", /^.*#__admin:resource:authority__.*(\n|\r)/, ''
+    inject_into_file "app/models/#{model_name}.rb", 
+        %Q[ 
+         # config authority for admin_user                              #__admin:resource:authority__
+         # adds method: creatable_by?(user), etc                        #__admin:resource:authority__
+         # Edit config/initializers/authority.rb.                       #__admin:resource:authority__
+         # That file documents all your options,                        #__admin:resource:authority__
+         # but one of particular interest is config.abilities,          #__admin:resource:authority__
+         # which defines the verbs and corresponding adjectives         #__admin:resource:authority__
+         # in your app.                                                 #__admin:resource:authority__
+         #                                                              #__admin:resource:authority__
+         # This option determines what methods are added to your users, #__admin:resource:authority__
+         # models and authorizers.                                      #__admin:resource:authority__
+         # If you need to ask user.can_deactivate?(Satellite)           #__admin:resource:authority__
+         # and                @satellite.deactivatable_by?(user)        #__admin:resource:authority__
+         #                                                              #__admin:resource:authority__
+         # add :deactivate => 'deactivatable' to the hash.              #__admin:resource:authority__
+         # =>                                                           #__admin:resource:authority__
+         # The defaults are:                                            #__admin:resource:authority__
+         #  config.abilities =  {                                       #__admin:resource:authority__
+         #   :create => 'creatable',                                    #__admin:resource:authority__
+         #   :read   => 'readable',                                     #__admin:resource:authority__
+         #   :update => 'updatable',                                    #__admin:resource:authority__
+         #   :delete => 'deletable'                                     #__admin:resource:authority__
+         # }                                                            #__admin:resource:authority__
+         #                                                              #__admin:resource:authority__
+         include Authority::Abilities                                   #__admin:resource:authority__
+         # Set authorizer class to Admin::UserAuthorizer                #__admin:resource:authority__
+         self.authorizer_name = 'UserAuthorizer'                        #__admin:resource:authority__
+        ].split(/\n/).map { |line| line.gsub /^\s{8}/, ''}.join("\n"),
+    
+        :after => /ActiveRecord::Base/
+    
+  end
+  
+  # inject menu to access resource
+  def resource_menu
+    inject_into_file "app/views/admin/shared/_sidebar.html.erb", 
+                    "\n<!-- admin:menu:start_for #{model_name_plural} -->\n" +
+                    "<li><%= link_to #{index_url} do %>" +
+                    "\n\t<i class='fa fa-fw fa-table'></i> #{controller_class_name}" +
+                    "<% end %></li>" +
+                    "\n<!-- admin:menu:end_for #{model_name_plural} -->\n",
+                    :after => '<!-- admin:sidebar holder -->'
+  end
   
   def controller_class_name
     model.pluralize.camelize

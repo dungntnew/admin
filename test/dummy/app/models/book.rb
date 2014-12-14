@@ -1,4 +1,4 @@
-class Post < ActiveRecord::Base 
+class Book < ActiveRecord::Base 
  # config authority for admin_user                              #__admin:resource:authority__
  # adds method: creatable_by?(user), etc                        #__admin:resource:authority__
  # Edit config/initializers/authority.rb.                       #__admin:resource:authority__
@@ -26,10 +26,4 @@ class Post < ActiveRecord::Base
  # Set authorizer class to Admin::UserAuthorizer                #__admin:resource:authority__
  self.authorizer_name = 'UserAuthorizer'                        #__admin:resource:authority__
 
-  # Adds `creatable_by?(user)`, etc
-  include Authority::Abilities
-  
-  # Set authorizer class to UserAuthorizer
-  self.authorizer_name = 'UserAuthorizer'
-  
 end

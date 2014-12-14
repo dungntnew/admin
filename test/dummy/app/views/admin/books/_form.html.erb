@@ -1,0 +1,26 @@
+<%= form_for(@book, url: main_app.admin_books_path(@book),  html: { method: action_name=="new"? ':post': ':put', class: 'form-horizontal' }) do |f| %>
+
+
+<div class="form-group">
+    <%= f.label :title, class: 'col-sm-2 control-label'  %>
+    <div class="col-sm-6">
+        <%= f.text_field :title, class: 'form-control'  %>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <%= f.label :author, class: 'col-sm-2 control-label'  %>
+    <div class="col-sm-6">
+        <%= f.text_field :author, class: 'form-control'  %>
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+        <%= f.submit action_name == "new" ? "Create" : "Update", class: "btn btn-primary" %>
+    </div>
+</div>
+<% end %>
