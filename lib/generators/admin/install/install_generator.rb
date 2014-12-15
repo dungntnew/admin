@@ -39,4 +39,10 @@ class Admin::InstallGenerator < Rails::Generators::Base
   def create_shared_menu
     template "_sidebar.html.erb", "app/views/admin/shared/_sidebar.html.erb"
   end
+  
+  # TODO: create 403 HTML FILE!
+  
+  def generate_kaminari_theme
+    generate "kaminari:views", "bootstrap3"
+  end
 end
