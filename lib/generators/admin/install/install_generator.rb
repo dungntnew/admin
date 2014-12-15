@@ -1,5 +1,5 @@
 class Admin::InstallGenerator < Rails::Generators::Base
-  source_root File.expand_path('../../templates', __FILE__)
+  source_root File.expand_path('../templates', __FILE__)
   
   # copy migrations file from engine to app
   # end migrate with scope admin
@@ -19,6 +19,24 @@ class Admin::InstallGenerator < Rails::Generators::Base
   # end
   
   def create_admin
-    Admin::User.create email: "dungntnew@gmail.com", name: "Admin", password: "abcd1234", role: "admin"
+    Admin::User.find_or_create_by(email: "dungntnew@gmail.com") do |u|
+      u.name     = "Admin"
+      u.password = "abcd1234"
+      u.role     = "admin"
+    end
+  end
+  
+  def mount_engine
+    # add engine to routes file
+    gsub_file "config/routes.rb", /^.*__admin:install:engine__.*(\n|\r)/, ''
+    inject_into_file "config/routes.rb", 
+       %Q[
+         mount Admin::Engine => "/admin"        #__admin:install:engine__
+        ].split(/\n/).map { |line| line.gsub /^\s{8}/, ''}.join("\n"),
+        :after => /Rails.application.routes.draw do/
+  end
+  
+  def create_shared_menu
+    template "_sidebar.html.erb", "app/views/admin/shared/_sidebar.html.erb"
   end
 end

@@ -3,6 +3,7 @@ Admin::Engine.routes.draw do
   # route for devise [Mountable Engine]
   devise_for :users, {
     :class_name   => "Admin::User",
+    :path => '',
     :controllers  => {
         :registrations => "admin/registrations",
         :confirmations => "admin/confirmations",  

@@ -81,6 +81,8 @@ class Admin::ResourceGenerator < Rails::Generators::Base
                     :after => '<!-- admin:sidebar holder -->'
   end
   
+  # TODO: Only Admin User can see resource menu
+  
   def controller_class_name
     model.pluralize.camelize
   end

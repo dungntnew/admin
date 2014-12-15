@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
  namespace :admin do                    #__admin:resource:route:book__
     resources :books     #__admin:resource:route:book__
  end                                    #__admin:resource:route:book__
