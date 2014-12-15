@@ -1,5 +1,9 @@
+require "rails"
+require "kaminari"
 require "devise"
 require "authority"
+require "bootstrap-sass"
+
 
 module Admin
   class Engine < ::Rails::Engine
