@@ -5,7 +5,7 @@ class Admin::<%=controller_class_name%>Controller < Admin::ApplicationController
 
   # GET /<%=name_for_route%>
   def index
-    @<%=model_name_plural%> = <%=model_class%>.all
+    @<%=model_name_plural%> = <%=model_class%>.page params[:page]
   end
 
   # GET /<%=name_for_route%>/1
