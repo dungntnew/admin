@@ -1,5 +1,17 @@
 <h2>Admin Users</h2>
+
+<div class="row">
+	<div class="col-xs-9">
 <%= paginate @users %>
+</div>
+<div class="col-xs-3">
+	
+<%= link_to content_tag(:i, ' New', class: 'glyphicon glyphicon-plus'),
+	new_user_path, class: 'btn btn-primary' if  current_user.can_create?(Admin::User)
+%>
+</div>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -7,20 +19,36 @@
       <th>Name</th>
       <th>Email</th>
 	  <th>Role</th>
-      <th colspan="2"></th>
+      <th>Operation</th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
       <tr>
-		<td><%= link_to user.id, user_path(user) %></td>
+		<td><%= link_to user.id, edit_user_path(user) %></td>
 		<td><%= user.name %></td>
 		<td><%= user.email %></td>
 		<td><%= user.role %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) if current_user.can_update?(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, 
-			data: { confirm: 'Are you sure?' } if current_user.can_delete?(user) %></td>
+		
+		
+        <td>
+			<% if current_user.can_update?(user) %>
+			<%= link_to content_tag(:i, ' Edit', class: 'glyphicon glyphicon-edit'),
+				edit_user_path(user), class: 'btn btn-info'
+			%>
+			<% end %>
+			
+			<% if current_user.can_update?(user) %>
+				<%= link_to content_tag(:i, ' Delete', class: 'glyphicon glyphicon-trash'), 
+					user,
+					class: "btn btn-danger",
+					method: :delete,
+					data: { confirm: "Delete user #{user.name} ?"}	
+					%>
+			<% end %>
+		</td>
+		
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +56,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path if current_user.can_create?(Admin::User) %>
+

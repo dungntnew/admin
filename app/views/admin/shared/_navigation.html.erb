@@ -17,13 +17,13 @@
 					<% if user_signed_in? %>
 					<li>
 						<%= link_to edit_user_registration_path, :label => "Profile" do %>
-							<i class="fa fa-user"></i> Welcome <%= current_user %>
+							<i class="glyphicon glyphicon-user"></i> Welcome <%= current_user %>
 						<% end %>
 					</li>
 				
 	                <li>
 						<%= link_to destroy_user_session_path,  :label => "Log Out" do %>
-							<i class="fa fa-fw fa-power-off"></i> Log Out
+							<i class="glyphicon glyphicon-off"></i> Log Out
 						<% end %>
 	                </li>
 					
@@ -49,7 +49,7 @@
 					<% if user_signed_in? %>
 					<li <% if params[:controller] == "admin/users" -%> class="active" <% end -%> >
 						<%= link_to users_path, :title => "Admin Users" do %>
-							<i class="fa fa-fw fa-dashboard"></i>Admin Users
+							<i class="glyphicon glyphicon-list-alt"></i> Admin Users
 						<% end %>
                     </li>
 					<% end %>

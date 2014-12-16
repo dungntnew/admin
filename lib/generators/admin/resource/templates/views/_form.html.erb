@@ -1,4 +1,9 @@
-<%%= form_for(@<%=model_name%>, url: <%=create_path%>(@<%=model_name%>),  html: { method: action_name=="new"? ':post': ':put', class: 'form-horizontal' }) do |f| %>
+
+<%% 
+	form_url = (action_name == "new") ? <%=create_path%>(@<%=model_name%>) : <%=update_path%>(@<%=model_name%>)
+	
+%>
+<%%= form_for(@<%=model_name%>, url: form_url,  html: { class: 'form-horizontal' }) do |f| %>
 
 <% attributes.each do |attribute| %>
 <div class="form-group">

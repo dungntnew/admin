@@ -1,33 +1,58 @@
 <h2>Admin <%=controller_class_name%></h2>
-<%%= paginate @<%=model_name_plural%> %>
+
+<div class="row">
+	<div class="col-xs-9">
+		<% if paginate %>
+			<%%= paginate @<%=model_name_plural%> %>
+		<% end %>
+   </div>
+
+	<div class="col-xs-3">
+		<%%= link_to content_tag(:i, ' New', class: 'glyphicon glyphicon-plus'),
+			 <%=new_path%>, class: 'btn btn-primary' if current_user.can_create?(<%=model_class%>) %>
+	</div>
+	
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
+	  <th>ID</th>	
 	  <% attributes.each do |attribute| %>
       <th><%=attribute%></th>
 	  <% end %>
-      <th colspan="2"></th>
+      <th>Operation</th>
     </tr>
   </thead>
 
   <tbody>
   <%% @<%=model_name_plural%>.each do |<%=model_name%>|%>
     <tr>
+	  <td><%%= link_to <%=model_name%>.id, <%=edit_path%>(<%=model_name%>) %></td>
 	  <% attributes.each do |attribute| %>
-		<% if attribute == "id" %>
-			<td><%%= link_to <%=model_name%>.id, <%=show_path%>(<%=model_name%>) %></td>
-		<% else %>
-			<td><%%= <%=model_name%>.<%=attribute%> %></td>
-		<% end %>
+		<td><%%= <%=model_name%>.<%=attribute%> %></td>
 	  <% end %>
-      <td><%%= link_to 'Edit', <%=edit_path%>(<%=model_name%>) if current_user.can_update?(<%=model_name%>) %></td>
-      <td><%%= link_to 'Destroy', <%=destroy_path%>(<%=model_name%>), method: :delete, 
-		data: { confirm: 'Are you sure?' } if current_user.can_delete?(<%=model_name%>) %></td>
-    </tr>
+	  
+      <td>
+		<%% if current_user.can_update?(<%=model_name%>) %>
+		<%%= link_to content_tag(:i, ' Edit', class: 'glyphicon glyphicon-edit'),
+			 <%=edit_path%>(<%=model_name%>), class: 'btn btn-info'
+		%>
+		<%% end %%>
+
+		<%% if current_user.can_delete?(<%=model_name%>) %>
+			<%%= link_to content_tag(:i, ' Delete', class: 'glyphicon glyphicon-trash'), 
+				<%=destroy_path%>(<%=model_name%>),
+				class: "btn btn-danger",
+				method: :delete,
+				data: { confirm: "Are you sure?"}	
+				%>
+		<%% end %%>
+		</td>
+	</tr>
   <%% end %>
   </tbody>
 </table>
 
 <br>
 
-<%%= link_to 'New <%=model_class%>', <%=new_path%> if current_user.can_create?(<%=model_class%>) %>

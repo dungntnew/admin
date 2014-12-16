@@ -4,6 +4,8 @@ class Admin::ResourceGenerator < Rails::Generators::Base
   argument :exclude, type: :array, banner: "exclude field, ex: id, created_at",
            :default => %w[id created_at updated_at]
   
+  class_option :paginate, :aliases => "-p", :desc => "Using paginate for view"
+  
   def create_controller
     template "controller.rb", "app/controllers/admin/#{model_name_plural}_controller.rb"
   end
@@ -77,7 +79,7 @@ class Admin::ResourceGenerator < Rails::Generators::Base
                     "<% if user_signed_in? %>" +
                     "<li <% if params[:controller] =='admin/#{model_name_plural}' -%> class='active' <% end -%> >" + 
                     "<%= link_to #{index_url} do %>" +
-                    "\n\t<i class='fa fa-fw fa-table'></i> #{controller_class_name}" +
+                    "\n\t<i class='glyphicon glyphicon-list-alt'></i> #{controller_class_name}" +
                     "<% end %></li>" +
                     "<% end %>" +
                     "\n<!-- admin:menu:end_for #{model_name_plural} -->\n",
@@ -85,8 +87,10 @@ class Admin::ResourceGenerator < Rails::Generators::Base
   end
 
   
-  # TODO: Only Admin User can see resource menu
-  
+  def paginate
+     options[:paginate]
+  end
+    
   def controller_class_name
     model.pluralize.camelize
   end
