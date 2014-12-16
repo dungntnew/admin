@@ -3,11 +3,15 @@ require "admin/engine"
 module Admin
   
   class << self
-    attr_accessor :app_name
+    attr_accessor :config
   end
   
-  # Yield self on setup for nice config blocks
   def self.setup(&block)
-    yield self
+    yield @config ||= Admin::Configuration.new
+  end
+
+  class Configuration
+    include ActiveSupport::Configurable
+    config_accessor :app_name
   end
 end
