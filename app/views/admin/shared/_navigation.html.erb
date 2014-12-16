@@ -46,14 +46,8 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    
-					<li class="active">
-						<%= link_to "/admin", :title => "Dashboard" do %>
-							<i class="fa fa-fw fa-dashboard"></i>Dashboard
-						<% end %>
-                    </li>
 					<% if user_signed_in? %>
-					<li>
+					<li <% if params[:controller] == "admin/users" -%> class="active" <% end -%> >
 						<%= link_to users_path, :title => "Admin Users" do %>
 							<i class="fa fa-fw fa-dashboard"></i>Admin Users
 						<% end %>

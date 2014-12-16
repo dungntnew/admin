@@ -16,6 +16,5 @@ Admin::Engine.routes.draw do
   
   # resource for users
   resources :users
-  get 'debugger/index'
-  root to: 'debugger#index'
+  root to: 'users#index'
 end

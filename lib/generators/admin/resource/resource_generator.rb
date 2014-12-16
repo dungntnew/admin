@@ -74,12 +74,16 @@ class Admin::ResourceGenerator < Rails::Generators::Base
   def resource_menu
     inject_into_file "app/views/admin/shared/_sidebar.html.erb", 
                     "\n<!-- admin:menu:start_for #{model_name_plural} -->\n" +
-                    "<li><%= link_to #{index_url} do %>" +
+                    "<% if user_signed_in? %>" +
+                    "<li <% if params[:controller] =='admin/#{model_name_plural}' -%> class='active' <% end -%> >" + 
+                    "<%= link_to #{index_url} do %>" +
                     "\n\t<i class='fa fa-fw fa-table'></i> #{controller_class_name}" +
                     "<% end %></li>" +
+                    "<% end %>" +
                     "\n<!-- admin:menu:end_for #{model_name_plural} -->\n",
                     :after => '<!-- admin:sidebar holder -->'
   end
+
   
   # TODO: Only Admin User can see resource menu
   
