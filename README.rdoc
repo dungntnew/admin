@@ -10,6 +10,7 @@ gem "admin", path: "../admin"
 プロジェクトルートで以下のコマンドを実行する
 
 bundle install
+
 bundle exec admin:install
 
 Adminに新しいメニューアイテムを追加方法
