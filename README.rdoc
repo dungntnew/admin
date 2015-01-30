@@ -1,3 +1,18 @@
 = Admin
 
 This project rocks and uses MIT-LICENSE.
+
+インストル手順：
+Gemfileに以下記載を追加する（local gem)
+gem "admin", path: "../admin"
+
+プロジェクトルートで以下のコマンドを実行する
+bundle install
+bundle exec admin:install
+
+Adminに新しいメニューアイテムを追加方法
+以下のコマンドを実行する
+
+bundle exec admin:resource ModelName
+
+例：bundle exec admin:resource Post
