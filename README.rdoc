@@ -4,9 +4,11 @@ This project rocks and uses MIT-LICENSE.
 
 インストル手順：
 Gemfileに以下記載を追加する（local gem)
+
 gem "admin", path: "../admin"
 
 プロジェクトルートで以下のコマンドを実行する
+
 bundle install
 bundle exec admin:install
 
