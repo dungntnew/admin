@@ -11,43 +11,43 @@
 		<%%= link_to content_tag(:i, ' New', class: 'glyphicon glyphicon-plus'),
 			 <%=new_path%>, class: 'btn btn-primary' if current_user.can_create?(<%=model_class%>) %>
 	</div>
-	
+
 </div>
 
 <table class="table table-striped">
   <thead>
-    <tr>
-	  <th>ID</th>	
+	<tr>
+	  <th>ID</th>
 	  <% attributes.each do |attribute| %>
-      <th><%=attribute.humanize%></th>
+	  <th><%=attribute.humanize%></th>
 	  <% end %>
-      <th>Operation</th>
-    </tr>
+	  <th>Operation</th>
+	</tr>
   </thead>
 
   <tbody>
   <%% @<%=model_name_plural%>.each do |<%=model_name%>|%>
-    <tr>
+	<tr>
 	  <td><%%= link_to <%=model_name%>.id, <%=edit_path%>(<%=model_name%>) %></td>
 	  <% attributes.each do |attribute| %>
 		<td><%%= <%=model_name%>.<%=attribute%> %></td>
 	  <% end %>
-	  
-      <td>
+
+	  <td>
 		<%% if current_user.can_update?(<%=model_name%>) %>
 		<%%= link_to content_tag(:i, ' Edit', class: 'glyphicon glyphicon-edit'),
 			 <%=edit_path%>(<%=model_name%>), class: 'btn btn-info'
 		%>
-		<%% end %%>
+		<%% end %>
 
 		<%% if current_user.can_delete?(<%=model_name%>) %>
-			<%%= link_to content_tag(:i, ' Delete', class: 'glyphicon glyphicon-trash'), 
+			<%%= link_to content_tag(:i, ' Delete', class: 'glyphicon glyphicon-trash'),
 				<%=destroy_path%>(<%=model_name%>),
 				class: "btn btn-danger",
 				method: :delete,
-				data: { confirm: "Are you sure?"}	
+				data: { confirm: "Are you sure?"}
 				%>
-		<%% end %%>
+		<%% end %>
 		</td>
 	</tr>
   <%% end %>
