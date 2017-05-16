@@ -11,11 +11,14 @@ gem "admin", path: "../admin"
 
 bundle install
 
-bundle exec admin:install
+bundle exec rails g admin:install
 
 Adminに新しいメニューアイテムを追加方法
 以下のコマンドを実行する
 
-bundle exec admin:resource ModelName
+bundle exec rails g admin:resource model_name
 
-例：bundle exec admin:resource Post
+# to remove resource admin
+bundle exec rails destroy admin:resource model_name
+
+例：bundle exec rails g admin:resource post
